@@ -4,6 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "tw": "npx tailwind -i .\\src\\assets\\input.css -o .\\src\\assets\\output.css --watch",
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
@@ -14,7 +15,9 @@
     "flowbite-react": "^0.6.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.17.0"
+    "react-modal": "^3.16.1",
+    "react-router-dom": "^6.17.0",
+    "react-select": "^5.7.7"
   },
   "devDependencies": {
     "@types/react": "^18.2.15",
