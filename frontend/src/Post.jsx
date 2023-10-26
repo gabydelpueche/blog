@@ -10,18 +10,18 @@ export default function Post() {
 
     const detectChange = (e) => {
         setPost({ ...post, [e.target.name]: e.target.value })
+        console.log(post)
     };
 
     const detectSelect = (e) => {
         setPost({ ...post, category: e.value })
+        console.log(post)
     }
 
     const postBlog = (e) => {
         e.preventDefault();
-
-        console.log(post);
-
         try {
+            setPost(post)
             fetch("http://localhost:3000/createPost", {
                 method: "POST",
                 headers: { 
@@ -34,6 +34,7 @@ export default function Post() {
         } catch (err) {
             console.error(err)
         }
+        props.setOpenModal(undefined)
     }
 
     const options = [
@@ -49,9 +50,13 @@ export default function Post() {
         resize: 'none'
     }
 
+    const buttonStyle ={
+        backgroundColor: "red"
+    }
+
     return (
         <>
-            <Button onClick={() => props.setOpenModal('createPost')}>Add Post</Button>
+            <Button style={buttonStyle} onClick={() => props.setOpenModal('createPost')}>Add Post</Button>
             <Modal show={props.openModal === 'createPost'} size="md" popup onClose={() => props.setOpenModal(undefined)}>
                 <Modal.Header />
                 <Modal.Body>
