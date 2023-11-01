@@ -1,4 +1,3 @@
-import Post from "./Post.jsx"
 import "./assets/output.css"
 import { NavLink } from 'react-router-dom'
 
@@ -27,7 +26,9 @@ export default function Navbar() {
                         </div>
 
                         <div className="flex items-center lg:order-2">
-                            <Post />
+                            <NavLink to="/post">
+                                <img src="https://cdn0.iconfinder.com/data/icons/social-messaging-ui-color-shapes/128/add-circle-blue-512.png"className="mr-3 h-10" />
+                            </NavLink>
 
                             <button id="toggleSidebarMobileSearch" type="button" className="p-2 text-gray-500 rounded-lg lg:hidden hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
                                 <span className="sr-only">Search</span>

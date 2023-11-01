@@ -13,6 +13,13 @@ export default function Register() {
     const addUser = (e) =>{
         e.preventDefault()
 
+        const userReg = /^[A-Za-z][A-Za-z0-9_]{7,29}$/;
+        const userValid = userReg.test(user.username)
+        if(!userValid){
+            alert('Not a valid username')
+            return
+        }
+
         try {
             setUser(user)
             fetch("http://localhost:3000/createUser", {
