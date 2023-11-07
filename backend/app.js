@@ -29,6 +29,7 @@ app.get('/getPost', async (req, res) =>{
 });
 
 app.get('/findUser/:username/:password', async (req, res) =>{
+    const loggedIn = localStorage.getItem('loggedIn');
     const found = await user.findOne({
             username: req.params.username,
             password: req.params.password
@@ -36,7 +37,9 @@ app.get('/findUser/:username/:password', async (req, res) =>{
 
     if(!found){
         console.log("user not found")
-    }else{
+    }
+    
+    if(loggedIn === 'true'){
         res.json(found)
     }
 
