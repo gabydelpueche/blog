@@ -20,7 +20,7 @@ export default function Login(){
                 .then(res => res.json)
                 .then(data => {
                     console.log(data);
-                    localStorage.setItem('user', JSON.stringify({username:"john"}));
+                    // localStorage.setItem('user', JSON.stringify({username:"john"}));
                     navigate('/home')
                 })
                 .catch(err => {

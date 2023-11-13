@@ -28,6 +28,10 @@ app.get('/getPost', async (req, res) =>{
     .catch(err => console.error(err))
 });
 
+app.get('viewPost', async (req, res) =>{
+    const thisPost = req.body
+})
+
 app.get('/findUser/:username/:password', async (req, res) =>{
     const loggedIn = localStorage.getItem('loggedIn');
     const found = await user.findOne({

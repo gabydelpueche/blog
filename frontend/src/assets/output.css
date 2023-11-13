@@ -1156,6 +1156,14 @@ input:checked + .toggle-bg {
   top: 1rem;
 }
 
+.end-2 {
+  inset-inline-end: 0.5rem;
+}
+
+.end-2\.5 {
+  inset-inline-end: 0.625rem;
+}
+
 .-z-10 {
   z-index: -10;
 }
@@ -1306,6 +1314,10 @@ input:checked + .toggle-bg {
   margin-right: 1rem;
 }
 
+.ms-auto {
+  margin-inline-start: auto;
+}
+
 .mt-0 {
   margin-top: 0px;
 }
@@ -1332,6 +1344,10 @@ input:checked + .toggle-bg {
 
 .mt-6 {
   margin-top: 1.5rem;
+}
+
+.me-2 {
+  margin-inline-end: 0.5rem;
 }
 
 .block {
@@ -1473,6 +1489,14 @@ input:checked + .toggle-bg {
 
 .h-screen {
   height: 100vh;
+}
+
+.h-12 {
+  height: 3rem;
+}
+
+.h-16 {
+  height: 4rem;
 }
 
 .max-h-\[90vh\] {
@@ -2900,6 +2924,14 @@ input:checked + .toggle-bg {
   padding-top: 1.25rem;
 }
 
+.pb-16 {
+  padding-bottom: 4rem;
+}
+
+.pt-8 {
+  padding-top: 2rem;
+}
+
 .text-left {
   text-align: left;
 }
@@ -2943,6 +2975,11 @@ input:checked + .toggle-bg {
   line-height: 1rem;
 }
 
+.text-3xl {
+  font-size: 1.875rem;
+  line-height: 2.25rem;
+}
+
 .font-bold {
   font-weight: 700;
 }
@@ -2973,6 +3010,10 @@ input:checked + .toggle-bg {
 
 .italic {
   font-style: italic;
+}
+
+.not-italic {
+  font-style: normal;
 }
 
 .leading-6 {
@@ -3723,6 +3764,11 @@ input:checked + .toggle-bg {
 .hover\:bg-yellow-200:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(252 233 106 / var(--tw-bg-opacity));
+}
+
+.hover\:bg-blue-800:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(30 66 159 / var(--tw-bg-opacity));
 }
 
 .hover\:bg-gradient-to-br:hover {
@@ -5775,6 +5821,10 @@ input:checked + .toggle-bg {
     padding: 2rem;
   }
 
+  .md\:p-5 {
+    padding: 1.25rem;
+  }
+
   .md\:text-2xl {
     font-size: 1.5rem;
     line-height: 2rem;
@@ -5824,6 +5874,10 @@ input:checked + .toggle-bg {
     margin-bottom: 2rem;
   }
 
+  .lg\:mb-6 {
+    margin-bottom: 1.5rem;
+  }
+
   .lg\:p-10 {
     padding: 2.5rem;
   }
@@ -5853,6 +5907,14 @@ input:checked + .toggle-bg {
     padding-bottom: 14rem;
   }
 
+  .lg\:pb-24 {
+    padding-bottom: 6rem;
+  }
+
+  .lg\:pt-16 {
+    padding-top: 4rem;
+  }
+
   .lg\:text-6xl {
     font-size: 3.75rem;
     line-height: 1;
@@ -5861,6 +5923,11 @@ input:checked + .toggle-bg {
   .lg\:text-xl {
     font-size: 1.25rem;
     line-height: 1.75rem;
+  }
+
+  .lg\:text-4xl {
+    font-size: 2.25rem;
+    line-height: 2.5rem;
   }
 }
 

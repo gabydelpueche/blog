@@ -1,5 +1,6 @@
 import Navbar from "./Nav.jsx"
 import Footer from "./Footer.jsx"
+import { NavLink } from 'react-router-dom'
 import { useState, useEffect } from 'react';
 
 export default function Home() {
@@ -14,6 +15,10 @@ export default function Home() {
             })
             .catch(err => console.error(err))
     }, []);
+
+    const viewPost = (e) => {
+        fetch('http://localhost:3000/viewPost')
+    }
 
     return (
         <div className="bg-gray-100 dark:bg-slate-600">
@@ -50,9 +55,11 @@ export default function Home() {
                 <a href="#" className="hover:bg-gray-400 dark:hover:bg-red-400 rounded py-2 px-4 mx-2">Trending</a>
                 <a href="#" className="hover:bg-gray-400 dark:hover:bg-red-400 rounded py-2 px-4 mx-2">Accessories</a>
             </div>
+
             <div className="grid justify-center grid-cols-1 md:grid-cols-2 gap-4 mb-10 p-3">       {
                 posts.map(post => (
                     <>
+                    <form onSubmit={viewPost}>
                         <article className="w-auto p-6 bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
                             <div className="flex justify-between items-center mb-5 text-gray-500">
                                 <span className="bg-red-100 text-red-800 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded dark:bg-red-200 dark:text-red-800">
@@ -71,12 +78,13 @@ export default function Home() {
                                     Jese Leos
                                 </span>
                             </div> */}
-                                <button type="button" data-modal-target="readMore" data-modal-toggle="readMore" className="inline-flex items-center font-medium text-red-600 dark:text-red-500 hover:underline">
-                                    Read more
+                                <NavLink to="/view">
+                                    <button type="submit" className="inline-flex items-center font-medium text-red-600 dark:text-red-500 hover:underline">Read More</button>
                                     <svg className="ml-2 w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
-                                </button>
+                                </NavLink>
                             </div>
                         </article >
+                    </form>
                         {/* <div className="max-w-full bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                             <img className="rounded-t-lg" src="/docs/images/blog/image-1.jpg" alt="" />
                             <div className="p-5">
@@ -88,16 +96,6 @@ export default function Home() {
                         </div> */}
                     </>
                 ))}
-            </div>
-            {/* Read More Pop Up */}
-            <div id="readMore" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
-                <div class="flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
-                    <img class="object-cover w-full rounded-t-lg h-96 md:h-auto md:w-48 md:rounded-none md:rounded-l-lg" src="/docs/images/blog/image-4.jpg" alt=""/>
-                        <div class="flex flex-col justify-between p-4 leading-normal">
-                            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Noteworthy technology acquisitions 2021</h5>
-                            <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order.</p>
-                        </div>
-                </div>
             </div>
 
             <iframe className="w-full aspect-video z-0" src="https://www.youtube.com/embed/XpRzg2Zkqy0?si=Oo2EqoGVYXn2z6CZ&amp;controls=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
