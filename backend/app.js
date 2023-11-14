@@ -33,10 +33,14 @@ app.get('/getPost', async (req, res) =>{
 });
 
 // Views specific posts on view page
-app.get('viewPost', async (req, res) =>{
+app.get('/viewPost/:id', async (req, res) =>{
     console.log('hi mom')
-    const thisPost = req.body
-    console.log(thisPost)
+    await post
+    .findOne({_id: req.params.id})
+    .then(thisPost => {
+        res.json(thisPost)
+    })
+    .catch(err => console.error(err))
 })
 
 // Login system

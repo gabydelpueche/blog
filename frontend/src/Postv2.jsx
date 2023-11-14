@@ -3,7 +3,6 @@ import React from 'react';
 import Select from 'react-select';
 import Navbar from "./Nav.jsx";
 import Footer from "./Footer.jsx"
-import Upload from "./Upload.jsx";
 
 export default function Postv2() {
     // Detecting post

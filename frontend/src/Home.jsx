@@ -1,10 +1,12 @@
 import Navbar from "./Nav.jsx"
 import Footer from "./Footer.jsx"
-import { NavLink } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { useState, useEffect } from 'react';
 
 export default function Home() {
     const [posts, setPosts] = useState([{}])
+    const [view, setView] = useState({id:''})
+    const navigate = useNavigate()
 
     useEffect(() => {
         fetch('http://localhost:3000/getPost')
@@ -16,10 +18,20 @@ export default function Home() {
     }, []);
 
     const viewPost = (e) => {
-        fetch('http://localhost:3000/viewPost')
+        e.preventDefault();
+        setView({id: e.target.id.value});
+        console.log(view);
+        
+    };
+
+    useEffect(() => {
+        console.log("View changed");
+        fetch(`http://localhost:3000/viewPost/${view.id}`)
             .then(res => res.json())
-            .then(data => console.log(data))
-    }
+            .then(data => {
+                navigate(`/view/${data._id}`)
+            });
+    }, [view])
 
     return (
         <div className="bg-gray-100 dark:bg-slate-600">
@@ -63,7 +75,8 @@ export default function Home() {
                 {/* individual posts container */}
                 {posts.map(post => (
                     <>
-                    <form onSubmit={viewPost}>
+                    <form onSubmit={viewPost} name="id">
+                        <input type="hidden" name="id" value={post._id} />
                         <article className="w-auto p-6 bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
                             {/* Category and date */}
                             <div className="flex justify-between items-center mb-5 text-gray-500">
@@ -76,7 +89,7 @@ export default function Home() {
                             {/* Title */}
                             <h2 name='title' className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"><a href="#">{post.title}</a></h2>
                             {/* Content */}
-                            <p name='content' className="mb-5 font-light text-gray-500 dark:text-gray-400 truncate">{post.content}</p>
+                            <p name='content' id="content" value={post.content} className="mb-5 font-light text-gray-500 dark:text-gray-400 truncate">{post.content}</p>
                             
                             <div className="flex justify-between items-center">
                                 {/* Person who posted */}
@@ -86,9 +99,8 @@ export default function Home() {
                                     Jese Leos
                                 </span>
                             </div> */}
-                                <NavLink to="/view">
-                                    <button type="submit" className="inline-flex items-center font-medium text-red-600 dark:text-red-500 hover:underline">Read More</button>
-                                </NavLink>
+                                <button type="submit" className="inline-flex items-center font-medium text-red-600 dark:text-red-500 hover:underline">Read More</button>
+                                
                             </div>
                         </article >
                     </form>
