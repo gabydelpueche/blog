@@ -5,6 +5,7 @@ const port =  process.env.PORT || 3000;
 const post = require('./models/post');
 const user = require('./models/user');
 const cors = require("cors");
+// const bcrypt = require('bcrypt');
 
 mongoose.connect('mongodb+srv://gdelpu720:34768ppgX22334*@cluster0.g7epr1c.mongodb.net/BlogPost')
     .then( () => {
@@ -15,7 +16,7 @@ mongoose.connect('mongodb+srv://gdelpu720:34768ppgX22334*@cluster0.g7epr1c.mongo
     });
 
 app.use(cors());
-
+app.use(express.json())
 app.use(express.urlencoded({extended: true}));
 
 app.get('/getPost', async (req, res) =>{
@@ -27,16 +28,61 @@ app.get('/getPost', async (req, res) =>{
     .catch(err => console.error(err))
 });
 
+app.get('viewPost', async (req, res) =>{
+    const thisPost = req.body
+})
+
+app.get('/findUser/:username/:password', async (req, res) =>{
+    const loggedIn = localStorage.getItem('loggedIn');
+    const found = await user.findOne({
+            username: req.params.username,
+            password: req.params.password
+        });
+
+    if(!found){
+        console.log("user not found")
+    }
+    
+    if(loggedIn === 'true'){
+        res.json(found)
+    }
+
+    // const username = req.params.username
+    // const password = req.params.password
+
+    // try{
+    //     const found = await user.findOne({username})
+    //     const valid = bcrypt.compare({password}, found.password)
+
+    //     if(!found){
+    //         res.status(400).json({ message: 'Failed to find user', error: error.message });
+    //     }
+
+    //     if (valid) {
+    //         res.json(found);
+    //     } else{
+    //         console.log("Invalid Username or Password Entry");
+    //         res.status(400).json({ message: 'Failed to validate user', error: error.message });
+    //     };
+    // } catch{
+    //     res.status(500).json({ message: 'Server Error', error: error.message });
+    // }
+});
+
 app.post('/createPost', async (req, res) => {
-    console.log("hi mom")
     const add = new post({
         category: req.body.category,
         title: req.body.title,
         description: req.body.description,
         content: req.body.content,
+        image: req.body.image,
     });
-    await add.save();
-    res.json(add);
+    try {
+        await add.save();
+        res.json({ message: 'Post created successfully', data: add });
+    } catch (error) {
+        res.status(500).json({ message: 'Failed to create post', error: error.message });
+    }
 });
 
 app.post('/createUser', async (req, res) =>{
@@ -44,8 +90,36 @@ app.post('/createUser', async (req, res) =>{
         username: req.body.username,
         password: req.body.password
     });
-    await add.save();
-    res.json(add);
+    try {
+        await add.save();
+        res.json({ message: 'User created successfully', data: add });
+    } catch (error) {
+        res.status(500).json({ message: 'Failed to create User', error: error.message });
+    }
+    // const saltRounds = 10
+    // const { username, password } = req.body;
+
+    // try {
+    //     bcrypt.hash(password, saltRounds, (err, hash) => {
+    //         if(err){
+    //             console.error(err);
+    //         } 
+    //         const add = new user({
+    //             username: username,
+    //             password: hash
+    //         });
+
+    //         add.save()
+    //             .then((added) =>{
+    //                 res.json({ message: 'User created successfully', data: added });
+    //             })
+    //             .catch(err => {
+    //                 res.status(500).json({ message: 'Failed to create User', error: err.message });
+    //             });
+    //     });
+    // } catch (error) {
+    //     res.status(500).json({ message: 'Server Error', error: error.message });
+    // }
 });
 
 app.listen(port, () => {
