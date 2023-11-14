@@ -58,7 +58,7 @@ export default function Login(){
                                     <input onChange={detectChange} type="password" name="password" id="password" placeholder="••••••••" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-red-600 focus:border-red-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-red-500 dark:focus:border-red-500" required=""/>
                                 </div>
                                 {/* Submit */}
-                                <button disabled={disabledButton} type="submit" className="mt-6 w-full text-white bg-red-600 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">Create an account</button>
+                                <button disabled={disabledButton} type="submit" className="mt-6 w-full text-white bg-red-600 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">Login</button>
                                 {/* Redirect to Register page */}
                                 <p className="text-sm font-light text-gray-500 dark:text-gray-400">
                                     Don't have an account? <NavLink to="/" className="font-medium text-red-600 hover:underline dark:text-red-500">Register here</NavLink>
