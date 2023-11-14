@@ -1,11 +1,14 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const cors = require("cors");
+
 const app = express();
+
 const port =  process.env.PORT || 3000;
+
+//Mongoose Collections
 const post = require('./models/post');
 const user = require('./models/user');
-const cors = require("cors");
-// const bcrypt = require('bcrypt');
 
 mongoose.connect('mongodb+srv://gdelpu720:34768ppgX22334*@cluster0.g7epr1c.mongodb.net/BlogPost')
     .then( () => {
@@ -19,6 +22,7 @@ app.use(cors());
 app.use(express.json())
 app.use(express.urlencoded({extended: true}));
 
+// Generates posts on home page
 app.get('/getPost', async (req, res) =>{
     await post
     .find()
@@ -28,10 +32,14 @@ app.get('/getPost', async (req, res) =>{
     .catch(err => console.error(err))
 });
 
+// Views specific posts on view page
 app.get('viewPost', async (req, res) =>{
+    console.log('hi mom')
     const thisPost = req.body
+    console.log(thisPost)
 })
 
+// Login system
 app.get('/findUser/:username/:password', async (req, res) =>{
     const loggedIn = localStorage.getItem('loggedIn');
     const found = await user.findOne({
@@ -69,6 +77,7 @@ app.get('/findUser/:username/:password', async (req, res) =>{
     // }
 });
 
+// Uploading a new post to the database
 app.post('/createPost', async (req, res) => {
     const add = new post({
         category: req.body.category,
@@ -85,6 +94,7 @@ app.post('/createPost', async (req, res) => {
     }
 });
 
+// Registering a new user into database
 app.post('/createUser', async (req, res) =>{
     const add = new user({
         username: req.body.username,
