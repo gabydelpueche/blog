@@ -15,7 +15,7 @@ const userModelSchema = new mongoose.Schema({
         type: String,
         required: [true, 'Your username is required']
     },
-    account: {
+    createdAt: {
         type: Date,
         default: new Date()
     },

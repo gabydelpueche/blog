@@ -4,6 +4,17 @@ const cors = require("cors");
 
 const app = express();
 
+//Added server stuff
+const authRoute = require('./routes/authRoute');
+const cookieParser = require('cookie-parser');
+const corsOptions = {
+    origin: [],
+    allowHeaders: ['Origin', 'X-Requested-With', 'Content-Type', 'Accept'],
+    credentials: true,
+    methods: ['GET', 'POST'],
+};
+require('dotenv').config();
+
 const port =  process.env.PORT || 3000;
 
 //Mongoose Collections
@@ -18,9 +29,18 @@ mongoose.connect('mongodb+srv://gdelpu720:34768ppgX22334*@cluster0.g7epr1c.mongo
         console.error(err);
     });
 
-app.use(cors());
+app.use((req, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'POST GET PUT');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+    next();
+})
+app.use(cors(corsOptions));
 app.use(express.json())
 app.use(express.urlencoded({extended: true}));
+// Server stuff
+app.use(cookieParser());
+app.use('/', authRoute);
 
 // Generates posts on home page
 app.get('/getPost', async (req, res) =>{
