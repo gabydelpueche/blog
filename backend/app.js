@@ -20,6 +20,7 @@ const port =  process.env.PORT || 3000;
 //Mongoose Collections
 const post = require('./models/post');
 const user = require('./models/user');
+const { createSecretKey } = require('crypto');
 
 mongoose.connect('mongodb+srv://gdelpu720:34768ppgX22334*@cluster0.g7epr1c.mongodb.net/BlogPost')
     .then( () => {
@@ -35,10 +36,11 @@ app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
     next();
 })
-app.use(cors(corsOptions));
+
 app.use(express.json())
 app.use(express.urlencoded({extended: true}));
 // Server stuff
+app.use(cors(corsOptions));
 app.use(cookieParser());
 app.use('/', authRoute);
 
@@ -76,27 +78,6 @@ app.get('/findUser/:username/:password', async (req, res) =>{
     } else{
         res.json(found)
     }
-
-    // const username = req.params.username
-    // const password = req.params.password
-
-    // try{
-    //     const found = await user.findOne({username})
-    //     const valid = bcrypt.compare({password}, found.password)
-
-    //     if(!found){
-    //         res.status(400).json({ message: 'Failed to find user', error: error.message });
-    //     }
-
-    //     if (valid) {
-    //         res.json(found);
-    //     } else{
-    //         console.log("Invalid Username or Password Entry");
-    //         res.status(400).json({ message: 'Failed to validate user', error: error.message });
-    //     };
-    // } catch{
-    //     res.status(500).json({ message: 'Server Error', error: error.message });
-    // }
 });
 
 // Uploading a new post to the database
@@ -128,30 +109,24 @@ app.post('/createUser', async (req, res) =>{
     } catch (error) {
         res.status(500).json({ message: 'Failed to create User', error: error.message });
     }
-    // const saltRounds = 10
-    // const { username, password } = req.body;
+});
 
-    // try {
-    //     bcrypt.hash(password, saltRounds, (err, hash) => {
-    //         if(err){
-    //             console.error(err);
-    //         } 
-    //         const add = new user({
-    //             username: username,
-    //             password: hash
-    //         });
+//Added server stuff
+app.get('/generate-token', (req, res) => {
+    const payload = { user: 'example_user' };
+    const token = jwt.sign(payload, secretKey, { expiresIn: '1h' });
+    res.json({ token });
+})
 
-    //         add.save()
-    //             .then((added) =>{
-    //                 res.json({ message: 'User created successfully', data: added });
-    //             })
-    //             .catch(err => {
-    //                 res.status(500).json({ message: 'Failed to create User', error: err.message });
-    //             });
-    //     });
-    // } catch (error) {
-    //     res.status(500).json({ message: 'Server Error', error: error.message });
-    // }
+app.get('/verify-token', (req, res) => {
+    const token = req.query.token;
+    jwt.verify(token, secretKey, (err, decoded) => {
+        if(err){
+            res.status(401).json({ message: 'Failed to verify token', error: error.message });
+        }else{
+            res.json({ message: 'Verified Token', decoded });
+        };
+    });
 });
 
 app.listen(port, () => {

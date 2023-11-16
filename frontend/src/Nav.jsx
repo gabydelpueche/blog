@@ -1,7 +1,40 @@
 import "./assets/output.css"
 import { NavLink } from 'react-router-dom'
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import axios from 'axios';
 
 export default function Navbar() {
+    const navigate = useNavigate();
+    const [cookies, removeCookie] = useState([]);
+    const [username, setUsername] = useState('');
+
+    useEffect(() => {
+        const verifyCookie = async () => {
+            if(!cookies.token){
+                navigate('/login');
+            };
+            
+            const { data } = await axios.post(
+                'http://localhost:3000/home', {}, { withCredentials: true }
+            );
+
+            const { status, user } = data;
+            setUsername(user);
+            return status
+                ? toast(`Hello ${user}`, {
+                    position: 'top-right',
+                })
+                : (removeCookie('token'), navigate('/login'));
+        };
+        verifyCookie();
+    }, [cookies, navigate, removeCookie]);
+
+    const logOut = () => {
+        removeCookie('token');
+        navigate('/register');
+    };
 
     return (
         <>
@@ -22,7 +55,13 @@ export default function Navbar() {
                                     Upload Post
                                 </button>
                             </NavLink>
+                            {/* added stuff+ */}
+                            <span className="self-center text-2xl font-semibold whitespace-nowrap text-white">{username}</span>
+                            <button onClick={logOut} className="self-center px-5 py-2.5 text-sm font-medium text-center text-white bg-red-700 rounded-lg focus:ring-4 focus:ring-red-200 dark:focus:ring-red-900 hover:bg-red-800">
+                                    Logout
+                            </button>
                         </div>
+                        <ToastContainer />
                     </div>
                 </nav>
             </header>
