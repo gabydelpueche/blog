@@ -25,7 +25,7 @@ const userModelSchema = new mongoose.Schema({
         timestamp: true,
     });
 
-    userModelSchema.pre('save', async (next) => {
+    userModelSchema.pre('save', async function (next) {
         this.password = await bcrpyt.hash(this.password, 12);
         next();
     });

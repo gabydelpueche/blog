@@ -24,7 +24,7 @@ module.exports.Signup = async (req, res, next) =>{
         res.status(201).json({ message: 'User signed up successfully', success: true, user});
         next()
     } catch(err){
-        res.status(500).json({ message: 'Failed to sign up', error: error.message });
+        res.status(500).json({ message: 'Failed to sign up', error: err.message });
     };
 };
 
