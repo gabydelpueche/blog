@@ -14,7 +14,7 @@ export default function App () {
                     <Route path="/login" element={<Login />}/>
                     <Route path="/home" element={<Home />}/>
                     <Route path="/post" element={<Postv2 />}/>
-                    <Route path="/view" element={<View />}/>
+                    <Route path="/view/:id" element={<View />}/>
                 </Routes>
             </div>
         </>

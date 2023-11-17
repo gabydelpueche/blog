@@ -1,18 +1,19 @@
 import "./assets/output.css"
 import { NavLink } from 'react-router-dom'
+import Logo from './assets/RR.jpg'
 
 export default function Navbar() {
 
     return (
         <>
          <header className="antialiased">
-                <nav className="bg-white border-gray-200 px-4 lg:px-6 py-2.5 dark:bg-gray-800">
+                <nav className="bg-transparent z-10 border-gray-200 px-4 lg:px-6 py-2.5 dark:bg-gray-800">
                     <div className="flex flex-wrap justify-between items-center">
 
                         <div className="flex justify-start items-center">
                             <NavLink to="/home" className="flex mr-4">
-                                <img src="https://cdn3.iconfinder.com/data/icons/medical-and-science/64/Heartbeat_Pulse-512.png" className="mr-3 h-8" alt="FlowBite Logo" />
-                                <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">RunwayRevive</span>
+                                <img src={Logo} className="mr-3 h-11" alt="RunwayRevive Logo" />
+                                {/* <span className="self-center text-2xl font-semibold whitespace-nowrap text-white">RunwayRevive</span> */}
                             </NavLink>
                         </div>
 

@@ -1,16 +1,19 @@
 import Navbar from "./Nav.jsx"
 import Footer from "./Footer.jsx"
 import { useState, useEffect } from 'react';
+import { useParams } from "react-router-dom";
 
 export default function View() {
-    const [posts, setPosts] = useState([{}])
+    let [post, setPost] = useState({});
+    const { id } = useParams();
+
+
 
     useEffect(() => {
-        fetch('http://localhost:3000/getPost')
+        fetch(`http://localhost:3000/viewPost/${id}`)
             .then(res => res.json())
             .then(data => {
-                console.log(posts)
-                setPosts(data)
+                setPost(post => post = data);
             })
             .catch(err => console.error(err))
     }, []);
@@ -20,8 +23,6 @@ export default function View() {
             <Navbar />
             <main className="pt-8 pb-16 lg:pt-16 lg:pb-24 bg-white dark:bg-gray-900 antialiased">
                 <div className="flex justify-between px-4 mx-auto max-w-screen-xl ">
-                {posts.map(post => (
-                    <>
                         {/* Beginning of Article */}
                         <article className="mx-auto w-full max-w-2xl format format-sm sm:format-base lg:format-lg format-blue dark:format-invert">
                             {/* Header */}
@@ -45,8 +46,6 @@ export default function View() {
                             {/* Article Body Start */}
                             <p className="lead">{post.content}</p>
                         </article>
-                    </>
-                ))}
                 </div>
             </main>
             <Footer />

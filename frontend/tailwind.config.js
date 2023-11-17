@@ -13,6 +13,7 @@ export default {
       }
     },
     fontFamily: {
+      'title': ['PP Hatton'],
       'body': [
     'Inter', 
     'ui-sans-serif', 
